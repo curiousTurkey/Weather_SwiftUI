@@ -22,7 +22,7 @@ struct ContentView: View {
             //VStack
             VStack{
                 LocationView(
-                    locationName: "\(String(format: "%.1f", latitude)), \(String(format: "%.1f", longitude))"
+                    locationName: viewModel.locationName
                 )
                 MainWeatherStatusView(
                     imageName: isNight ? "moon.stars.fill" : "cloud.sun.fill", temperature: viewModel.displayWeather?.daily.temperature2mMax[0] ?? 0
@@ -47,6 +47,7 @@ struct ContentView: View {
                     latitude = location.userLocation?.coordinate.latitude ?? 0.0
                     longitude = location.userLocation?.coordinate.longitude ?? 0.0
                     viewModel.loadWeather(latitude: latitude, longitude: longitude)
+                    viewModel.reverseGeocode(latitude: latitude, longitude: longitude)
                 } label: {
                     ButtonLabel(label: "Get weather", textColor: .blue, backgroundColor: .white)
                 }
